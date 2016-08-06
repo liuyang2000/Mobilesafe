@@ -34,4 +34,11 @@
         android:marqueeRepeatLimit="marquee_forever"
         />
 
+    <GridView
+        android:id="@+id/gv_home"
+        android:numColumns="3"
+        android:horizontalSpacing="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></GridView>
+
 </LinearLayout>
