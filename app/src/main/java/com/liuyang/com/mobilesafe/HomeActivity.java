@@ -56,8 +56,8 @@ public class HomeActivity extends AppCompatActivity {
                 switch (position){
                     case 0 : break;
                     case 8 :
-                        new Intent(getApplicationContext(),SettingActivity.class);
-
+                        Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                        startActivity(intent);
                         break;
                 }
             }
