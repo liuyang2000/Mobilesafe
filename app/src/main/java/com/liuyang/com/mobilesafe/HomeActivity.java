@@ -1,14 +1,18 @@
 package com.liuyang.com.mobilesafe;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.liuyang.com.mobilesafe.activity.SettingActivity;
 
 /**
  * 主界面
@@ -46,6 +50,18 @@ public class HomeActivity extends AppCompatActivity {
         // 九宫格控件设置数据适配器
         gv_home.setAdapter(new MyAdapter());
 
+        gv_home.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0 : break;
+                    case 8 :
+                        new Intent(getApplicationContext(),SettingActivity.class);
+
+                        break;
+                }
+            }
+        });
     }
 
     private void initUI() {
