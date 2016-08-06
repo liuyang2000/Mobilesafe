@@ -4,19 +4,28 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.liuyang.com.mobilesafe.util.StreamUtil;
 import com.liuyang.com.mobilesafe.util.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -39,6 +48,8 @@ public class SplashActivity extends AppCompatActivity {
     String mVersionCode ;
     String mVersionDes ;
     String mDownloadUrl ;
+
+    RelativeLayout rl_root;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -75,7 +86,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                downloadApk();
             }
         });
 
@@ -87,6 +98,42 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    private void downloadApk() {
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+            Log.i(TAG,"外部设备正常");
+
+            String path = Environment.getExternalStorageDirectory() + File.separator + "mobileSage74.apk";
+
+            HttpUtils httpUtils = new HttpUtils();
+
+            httpUtils.download(mDownloadUrl, path, new RequestCallBack<File>() {
+                @Override
+                public void onSuccess(ResponseInfo<File> responseInfo) {
+                    Log.i(TAG,"下载成功");
+                    File file = responseInfo.result;
+                    Log.i(TAG,"File getname : " + file.getName());
+                }
+
+                @Override
+                public void onFailure(HttpException e, String s) {
+                    Log.i(TAG,"下载成功");
+                }
+
+                @Override
+                public void onStart() {
+                    Log.i(TAG,"开始下载");
+                    super.onStart();
+                }
+
+                @Override
+                public void onLoading(long total, long current, boolean isUploading) {
+                    Log.i(TAG,"下载中。。。。" + " total = " + total + " current = " + current);
+                    super.onLoading(total, current, isUploading);
+                }
+            });
+        }
     }
 
     private void enterHome() {
@@ -106,6 +153,19 @@ public class SplashActivity extends AppCompatActivity {
         initUI();
 
         initData();
+
+        initAnimation();
+    }
+
+    /**
+     * 添加淡入的动画效果
+     */
+    private void initAnimation() {
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
+
+        alphaAnimation.setDuration(3000);
+
+        rl_root.startAnimation(alphaAnimation);
     }
 
     private void testSession() {
@@ -162,8 +222,13 @@ public class SplashActivity extends AppCompatActivity {
         }).start();
     }
 
+    /**
+     * 初始化UI
+     */
     public void initUI() {
         tv_version_name = (TextView) findViewById(R.id.tv_version_name);
+
+        rl_root = (RelativeLayout) findViewById(R.id.rl_root);
 
     }
 

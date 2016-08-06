@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.liuyang.com.mobilesafe.HomeActivity">
 
-
     <TextView
-        android:layout_width="wrap_content"
+        android:text="功能列表"
+        style="@style/TitleStyle"/>
+
+    <!--<TextView
+        android:text="你看上的法律上的纠纷拉速度接发斯蒂芬萨克的积分拉屎地方你看上的法律上的纠纷拉速度接发斯蒂芬萨克的积分拉屎地方"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="nihao"/>
-</RelativeLayout>
+        android:singleLine="true"
+        android:textColor="#000"
+        android:padding="5dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        />-->
+
+    <com.liuyang.com.mobilesafe.view.FocusTextView
+        android:text="你看上的法律上的纠纷拉速度接发斯蒂芬萨克的积分拉屎地方你看上的法律上的纠纷拉速度接发斯蒂芬萨克的积分拉屎地方"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#000"
+        android:padding="5dp"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        />
+
+</LinearLayout>
