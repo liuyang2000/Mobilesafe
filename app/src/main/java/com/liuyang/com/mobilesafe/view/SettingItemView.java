@@ -13,6 +13,9 @@ import com.liuyang.com.mobilesafe.R;
  * Created by liuyang on 2016/8/6.
  */
 public class SettingItemView extends RelativeLayout {
+    TextView tv_title;
+    TextView tv_desc;
+    CheckBox cb_box;
     /**
      * 重写了构造方法，调用两个参数的方法
      * @param context
@@ -41,9 +44,29 @@ public class SettingItemView extends RelativeLayout {
          View view = View.inflate(context, R.layout.setting_item_view, this);
          this.addView(view);
          */
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_desc = (TextView) findViewById(R.id.tv_desc);
+        cb_box = (CheckBox) findViewById(R.id.cb_box);
+    }
 
-        TextView tv_title = (TextView) findViewById(R.id.tv_title);
-        TextView tv_desc = (TextView) findViewById(R.id.tv_desc);
-        CheckBox cb_box = (CheckBox) findViewById(R.id.cb_box);
+    /**
+     * 判断是否开启的方法
+     * @return
+     */
+    public boolean isCheck(){
+        return cb_box.isChecked();
+    }
+
+    /**
+     * 设置条目中明细的状态
+     * @param isCheck
+     */
+    public void setCheck(boolean isCheck){
+        cb_box.setChecked(isCheck);
+        if(isCheck){
+            tv_desc.setText("自动更新已开启");
+        } else{
+            tv_desc.setText("自动更新已关闭");
+        }
     }
 }
