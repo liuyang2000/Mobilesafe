@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 /**
  * Created by liuyang on 2016/8/7.
  */
-public class SpUtils {
+public class SpUtil {
 
     private static SharedPreferences sp;
 
