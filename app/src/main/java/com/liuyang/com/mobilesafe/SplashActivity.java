@@ -1,5 +1,6 @@
 package com.liuyang.com.mobilesafe;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,10 +8,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +18,8 @@ import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.liuyang.com.mobilesafe.util.ContantValue;
+import com.liuyang.com.mobilesafe.util.SpUtil;
 import com.liuyang.com.mobilesafe.util.StreamUtil;
 import com.liuyang.com.mobilesafe.util.ToastUtil;
 
@@ -238,7 +239,15 @@ public class SplashActivity extends AppCompatActivity {
 
         mLocalVersionCode = getVersionCode();
 
-        checkVersion();
+        if(SpUtil.getBoolean(this, ContantValue.OPEN_UPDATE, false)){
+            checkVersion();
+        } else {
+            /**
+             * 不能直接调用enterHome();进入主界面
+             * 方法： 发送消息  4 秒后执行
+             */
+            mHandler.sendEmptyMessageDelayed(ENTER_HOME, 4000);
+        }
     }
 
     private void checkVersion() {
