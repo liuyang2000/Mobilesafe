@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--给 SettingItemView 定义属性-->
-    <declare-styleable name="SettingItemView">
+    <declare-styleable name="com.liuyang.com.mobilesafe.view.SettingItemView">
         <attr name="desctitle" format="string" />
         <attr name="descoff" format="string" />
         <attr name="descon" format="string" />
