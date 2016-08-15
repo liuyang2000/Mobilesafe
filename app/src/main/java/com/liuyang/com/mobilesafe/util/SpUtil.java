@@ -38,4 +38,33 @@ public class SpUtil {
 
         return sp.getBoolean(key, defValue);
     }
+
+    /**
+     * 保存String类型的值
+     * @param ctx 上下文环境
+     * @param key
+     * @param value
+     */
+    public static void putString(Context ctx, String key, String value) {
+        if (sp == null) {
+            sp = ctx.getSharedPreferences("config", ctx.MODE_PRIVATE);
+        }
+
+        sp.edit().putString(key, value).commit();
+    }
+
+    /**
+     * 获取String 类型的值
+     * @param ctx 上下文环境
+     * @param key
+     * @param defValue 默认值， 如果获取不到 key 对应的value ,则返回 defValue
+     * @return
+     */
+    public static String getString(Context ctx, String key, String defValue){
+        if(sp == null){
+            sp = ctx.getSharedPreferences("config", ctx.MODE_PRIVATE);
+        }
+
+        return sp.getString(key, defValue);
+    }
 }

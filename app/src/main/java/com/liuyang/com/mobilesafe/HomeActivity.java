@@ -1,8 +1,10 @@
 package com.liuyang.com.mobilesafe;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,6 +15,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.liuyang.com.mobilesafe.activity.SettingActivity;
+import com.liuyang.com.mobilesafe.util.ContantValue;
+import com.liuyang.com.mobilesafe.util.SpUtil;
 
 /**
  * 主界面
@@ -54,7 +58,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
-                    case 0 : break;
+                    case 0 : 
+                        showDialog();
+                        break;
                     case 8 :
                         Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
                         startActivity(intent);
@@ -62,6 +68,42 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    /**
+     *
+     */
+    private void showDialog() {
+        /**
+         * 获取是否保存了密码
+         */
+        String psd = SpUtil.getString(this, ContantValue.MOBILE_SAVE_PSD, "");
+        // 显示不同的对话框
+        if(TextUtils.isEmpty(psd)){
+            // 显示初始设置密码的对话框
+            showSetPsdDialog();
+        } else {
+            // 显示确认密码的对话框
+            showConfirmPsdDialog();
+        }
+    }
+
+    private void showConfirmPsdDialog() {
+
+    }
+
+    private void showSetPsdDialog() {
+        /**
+         * 需要自定义对话的样式，根据layout文件确定
+         * 为dialog设置一个VIEW dialog.setView(view);
+         */
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog dialog = builder.create();
+
+        View view = View.inflate(this, R.layout.dialog_set_psd, null);
+        dialog.setView(view);
+
+        dialog.show();
     }
 
     private void initUI() {
