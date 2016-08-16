@@ -92,7 +92,55 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void showConfirmPsdDialog() {
+    private void showConfirmPsdDialog() {{
+        /**
+         * 需要自定义对话的样式，根据layout文件确定
+         * 为dialog设置一个VIEW dialog.setView(view);
+         */
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.create();
+
+        final View view = View.inflate(this, R.layout.dialog_confirm_psd, null);
+        dialog.setView(view);
+
+        dialog.show();
+
+        Button btn_submit = (Button) view.findViewById(R.id.btn_submit);
+        Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String savedPsd = SpUtil.getString(getApplication(), ContantValue.MOBILE_SAVE_PSD, "");
+                EditText et_set_psd = (EditText) view.findViewById(R.id.et_set_psd);
+
+                String psd = et_set_psd.getText().toString();
+
+                if(!TextUtils.isEmpty(psd) && !TextUtils.isEmpty(savedPsd)){
+                    if(psd.equals(savedPsd)){
+                        // 进入手机防盗模块,开启一个新的Activity
+                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        startActivity(intent);
+                        //进入新的界面后,隐藏对话框
+                        dialog.dismiss();
+
+                    } else {
+                        ToastUtil.show(getApplicationContext(),"确认密码错误");
+                    }
+                } else {
+                    ToastUtil.show(getApplicationContext(),"请输入密码");
+                }
+
+            }
+        });
+    }
 
     }
 
@@ -135,6 +183,9 @@ public class HomeActivity extends AppCompatActivity {
                         startActivity(intent);
 
                         dialog.dismiss();
+
+                        // 存储设置的密码；
+                        SpUtil.putString(getApplication(),ContantValue.MOBILE_SAVE_PSD,psd);
                     } else {
                         ToastUtil.show(getApplicationContext(),"确认密码错误");
                     }
