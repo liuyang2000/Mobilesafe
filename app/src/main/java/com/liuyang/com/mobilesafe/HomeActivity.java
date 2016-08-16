@@ -9,14 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.liuyang.com.mobilesafe.activity.SettingActivity;
+import com.liuyang.com.mobilesafe.activity.TestActivity;
 import com.liuyang.com.mobilesafe.util.ContantValue;
 import com.liuyang.com.mobilesafe.util.SpUtil;
+import com.liuyang.com.mobilesafe.util.ToastUtil;
 
 /**
  * 主界面
@@ -98,12 +102,48 @@ public class HomeActivity extends AppCompatActivity {
          * 为dialog设置一个VIEW dialog.setView(view);
          */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        AlertDialog dialog = builder.create();
+        final AlertDialog dialog = builder.create();
 
-        View view = View.inflate(this, R.layout.dialog_set_psd, null);
+        final View view = View.inflate(this, R.layout.dialog_set_psd, null);
         dialog.setView(view);
 
         dialog.show();
+
+        Button btn_submit = (Button) view.findViewById(R.id.btn_submit);
+        Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et_set_psd = (EditText) view.findViewById(R.id.et_set_psd);
+                EditText et_confirm_psd = (EditText) view.findViewById(R.id.et_confirm_psd);
+
+                String psd = et_set_psd.getText().toString();
+                String confirmPsd = et_confirm_psd.getText().toString();
+
+                if(!TextUtils.isEmpty(psd) && !TextUtils.isEmpty(confirmPsd)){
+                    if(psd.equals(confirmPsd)){
+                    // 进入手机防盗模块,开启一个新的Activity
+                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        startActivity(intent);
+
+                        dialog.dismiss();
+                    } else {
+                        ToastUtil.show(getApplicationContext(),"确认密码错误");
+                    }
+                } else {
+                    ToastUtil.show(getApplicationContext(),"请输入密码");
+                }
+
+            }
+        });
     }
 
     private void initUI() {

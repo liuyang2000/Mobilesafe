@@ -23,6 +23,8 @@
         <activity android:name=".HomeActivity"></activity>
 
         <activity android:name=".activity.SettingActivity"></activity>
+
+        <activity android:name=".activity.TestActivity"></activity>
     </application>
 
 </manifest>
