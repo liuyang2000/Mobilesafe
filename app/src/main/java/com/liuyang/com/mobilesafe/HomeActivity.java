@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity {
         final AlertDialog dialog = builder.create();
 
         final View view = View.inflate(this, R.layout.dialog_confirm_psd, null);
-        dialog.setView(view);
+        dialog.setView(view,0,0,0,0);
 
         dialog.show();
 
@@ -153,7 +153,7 @@ public class HomeActivity extends AppCompatActivity {
         final AlertDialog dialog = builder.create();
 
         final View view = View.inflate(this, R.layout.dialog_set_psd, null);
-        dialog.setView(view);
+        dialog.setView(view,0,0,0,0);
 
         dialog.show();
 
