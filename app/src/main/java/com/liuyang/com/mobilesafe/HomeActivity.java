@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.liuyang.com.mobilesafe.activity.SettingActivity;
+import com.liuyang.com.mobilesafe.activity.SetupOverActivity;
 import com.liuyang.com.mobilesafe.activity.TestActivity;
 import com.liuyang.com.mobilesafe.util.ContantValue;
 import com.liuyang.com.mobilesafe.util.SpUtil;
@@ -126,7 +126,7 @@ public class HomeActivity extends AppCompatActivity {
                 if(!TextUtils.isEmpty(psd) && !TextUtils.isEmpty(savedPsd)){
                     if(psd.equals(savedPsd)){
                         // 进入手机防盗模块,开启一个新的Activity
-                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), SetupOverActivity.class);
                         startActivity(intent);
                         //进入新的界面后,隐藏对话框
                         dialog.dismiss();
@@ -178,8 +178,8 @@ public class HomeActivity extends AppCompatActivity {
 
                 if(!TextUtils.isEmpty(psd) && !TextUtils.isEmpty(confirmPsd)){
                     if(psd.equals(confirmPsd)){
-                    // 进入手机防盗模块,开启一个新的Activity
-                        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                        // 进入手机防盗模块,开启一个新的Activity
+                        Intent intent = new Intent(getApplicationContext(), SetupOverActivity.class);
                         startActivity(intent);
 
                         dialog.dismiss();
